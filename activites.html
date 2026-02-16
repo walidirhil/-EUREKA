@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>EUREKA ESEFJ – Activités</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--gold:#D4A017;--gold-light:#F5C842;--navy:#0A1628;--navy-mid:#142240;--navy-light:#1E3360;--cream:#F8F3E8;--text:#E8E0D0;--accent:#4FC3F7}
+    html{scroll-behavior:smooth}
+    body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
+    body[lang="ar"]{font-family:'Tajawal',sans-serif}
+    body[lang="ar"] p,body[lang="ar"] li{line-height:2;letter-spacing:0}
+    body[lang="ar"] h2,body[lang="ar"] h3{font-family:'Tajawal',sans-serif;font-weight:900;line-height:1.5}
+    .cursor{position:fixed;top:0;left:0;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference}
+    .cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s;opacity:.6}
+    #progress-bar{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--accent));z-index:200}
+    #starfield{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem 3rem;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(10,22,40,.97),rgba(10,22,40,.7));backdrop-filter:blur(10px);border-bottom:1px solid rgba(212,160,23,.15);animation:slideDown .7s ease forwards}
+    @keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+    .nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+    .nav-logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:.8rem;color:var(--navy);box-shadow:0 0 20px rgba(212,160,23,.35);animation:pulseGlow 3s ease-in-out infinite}
+    @keyframes pulseGlow{0%,100%{box-shadow:0 0 20px rgba(212,160,23,.35)}50%{box-shadow:0 0 35px rgba(212,160,23,.65),0 0 60px rgba(212,160,23,.15)}}
+    .nav-logo-text{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.05em}
+    .nav-right{display:flex;align-items:center;gap:2rem}
+    .nav-links{display:flex;gap:1.8rem;list-style:none}
+    .nav-links a{color:var(--text);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;position:relative;padding-bottom:4px;transition:color .3s}
+    body[lang="ar"] .nav-links a{letter-spacing:0;text-transform:none;font-size:.92rem}
+    .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--gold);transition:width .3s}
+    html[dir="rtl"] .nav-links a::after{left:auto;right:0}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold-light)}
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+    .lang-switcher{display:flex;align-items:center;background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.25);border-radius:100px;padding:3px;gap:2px}
+    .lang-btn{background:transparent;border:none;cursor:pointer;padding:.28rem .75rem;border-radius:100px;font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.06em;color:rgba(212,160,23,.55);transition:all .25s}
+    .lang-btn.active{background:var(--gold);color:var(--navy);box-shadow:0 2px 10px rgba(212,160,23,.4)}
+    .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);padding:.85rem 2.2rem;border-radius:6px;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.95rem;cursor:pointer;text-decoration:none;display:inline-block;transition:all .3s;box-shadow:0 4px 20px rgba(212,160,23,.3);letter-spacing:.04em}
+    body[lang="ar"] .btn-primary{font-family:'Tajawal',sans-serif;letter-spacing:0;font-size:1rem}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,160,23,.5)}
+    .reveal{opacity:0;transform:translateY(35px);transition:opacity .75s,transform .75s}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}.reveal-delay-4{transition-delay:.4s}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+    /* Page Hero */
+    .page-hero{position:relative;padding:10rem 3rem 5rem;text-align:center;overflow:hidden;z-index:1}
+    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(212,160,23,.1),transparent 65%);pointer-events:none}
+    .page-hero-label{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1rem;opacity:0;animation:fadeUp .7s ease .2s forwards}
+    body[lang="ar"] .page-hero-label{font-family:'Tajawal',sans-serif;letter-spacing:0}
+    .page-hero-label::before,.page-hero-label::after{content:'';display:block;width:30px;height:1px;background:var(--gold)}
+    .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--cream);line-height:1.1;letter-spacing:-.02em;opacity:0;animation:fadeUp .8s ease .35s forwards}
+    body[lang="ar"] .page-hero h1{font-family:'Tajawal',sans-serif;line-height:1.4}
+    .page-hero h1 span{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .page-hero p{font-size:1.05rem;color:rgba(232,224,208,.65);max-width:550px;margin:1.2rem auto 0;font-weight:300;line-height:1.75;opacity:0;animation:fadeUp .8s ease .5s forwards}
+    .page-hero-divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.8rem auto 0;opacity:0;animation:fadeUp .7s ease .6s forwards}
+    /* Side nav dots */
+    .act-nav{position:fixed;right:2rem;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:.9rem;z-index:50}
+    html[dir="rtl"] .act-nav{right:auto;left:2rem}
+    .act-dot{width:8px;height:8px;border-radius:50%;background:rgba(212,160,23,.25);border:1px solid rgba(212,160,23,.4);cursor:pointer;transition:all .3s;position:relative}
+    .act-dot:hover,.act-dot.active{background:var(--gold);box-shadow:0 0 10px rgba(212,160,23,.6);transform:scale(1.4)}
+    .act-dot .dot-tip{position:absolute;right:18px;top:50%;transform:translateY(-50%);background:rgba(10,22,40,.9);border:1px solid rgba(212,160,23,.2);border-radius:5px;padding:.3rem .7rem;font-family:'Space Mono',monospace;font-size:.6rem;letter-spacing:.1em;color:var(--gold-light);white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s}
+    html[dir="rtl"] .act-dot .dot-tip{right:auto;left:18px}
+    body[lang="ar"] .act-dot .dot-tip{font-family:'Tajawal',sans-serif;letter-spacing:0;font-size:.75rem}
+    .act-dot:hover .dot-tip{opacity:1}
+    /* Activity sections */
+    .activity-section{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:6rem 4rem;overflow:hidden}
+    .activity-section:first-of-type{padding-top:9rem}
+    .activity-section:nth-child(odd) .act-inner{flex-direction:row}
+    .activity-section:nth-child(even) .act-inner{flex-direction:row-reverse}
+    html[dir="rtl"] .activity-section:nth-child(odd) .act-inner{flex-direction:row-reverse}
+    html[dir="rtl"] .activity-section:nth-child(even) .act-inner{flex-direction:row}
+    .activity-section+.activity-section::before{content:'';position:absolute;top:0;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,rgba(212,160,23,.2),transparent)}
+    .act-bg{position:absolute;inset:0;pointer-events:none}
+    .act-bg-science{background:radial-gradient(ellipse at 20% 50%,rgba(212,160,23,.07),transparent 55%)}
+    .act-bg-innov{background:radial-gradient(ellipse at 80% 50%,rgba(79,195,247,.06),transparent 55%)}
+    .act-bg-dev{background:radial-gradient(ellipse at 20% 50%,rgba(129,199,132,.06),transparent 55%)}
+    .act-bg-culture{background:radial-gradient(ellipse at 80% 50%,rgba(255,138,101,.07),transparent 55%)}
+    .act-bg-partner{background:radial-gradient(ellipse at 20% 50%,rgba(186,104,200,.06),transparent 55%)}
+    .act-bg-social{background:radial-gradient(ellipse at 80% 50%,rgba(79,195,247,.06),transparent 55%)}
+    .activity-section:nth-child(even){background:var(--navy-mid)}
+    .activity-section:nth-child(odd){background:var(--navy)}
+    .act-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:5rem;width:100%}
+    .act-visual{flex:0 0 380px;display:flex;align-items:center;justify-content:center}
+    .act-icon-wrap{width:300px;height:300px;border-radius:28px;display:flex;align-items:center;justify-content:center;font-size:7rem;position:relative;transition:transform .4s}
+    .act-icon-wrap:hover{transform:scale(1.04) rotate(2deg)}
+    .act-icon-wrap::after{content:attr(data-num);position:absolute;bottom:1rem;right:1.2rem;font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.12em;color:rgba(255,255,255,.18)}
+    html[dir="rtl"] .act-icon-wrap::after{right:auto;left:1.2rem}
+    .act-1 .act-icon-wrap{background:rgba(212,160,23,.08)}
+    .act-2 .act-icon-wrap{background:rgba(79,195,247,.08)}
+    .act-3 .act-icon-wrap{background:rgba(129,199,132,.08)}
+    .act-4 .act-icon-wrap{background:rgba(255,138,101,.08)}
+    .act-5 .act-icon-wrap{background:rgba(186,104,200,.08)}
+    .act-6 .act-icon-wrap{background:rgba(79,195,247,.08)}
+    .act-text{flex:1}
+    .act-number{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;gap:.8rem;margin-bottom:1rem}
+    body[lang="ar"] .act-number{font-family:'Tajawal',sans-serif;letter-spacing:0}
+    .act-number::before{content:'';width:28px;height:1px;background:var(--gold)}
+    html[dir="rtl"] .act-number::before{display:none}
+    html[dir="rtl"] .act-number::after{content:'';width:28px;height:1px;background:var(--gold)}
+    .act-2 .act-number{color:var(--accent)}.act-2 .act-number::before{background:var(--accent)}
+    .act-3 .act-number{color:#81C784}.act-3 .act-number::before{background:#81C784}
+    .act-4 .act-number{color:#FF8A65}.act-4 .act-number::before{background:#FF8A65}
+    .act-5 .act-number{color:#BA68C8}.act-5 .act-number::before{background:#BA68C8}
+    .act-text h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,2.9rem);font-weight:700;color:var(--cream);line-height:1.2;margin-bottom:1.2rem}
+    .act-text .lead{font-size:1.05rem;line-height:1.85;color:rgba(232,224,208,.72);font-weight:300;margin-bottom:1.5rem}
+    .act-text .detail{font-size:.93rem;line-height:1.8;color:rgba(232,224,208,.5);margin-bottom:2rem}
+    .tag-row{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem}
+    .tag{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:100px;padding:.3rem .9rem;font-size:.78rem;color:rgba(232,224,208,.6);letter-spacing:.06em}
+    body[lang="ar"] .tag{letter-spacing:0;font-family:'Tajawal',sans-serif}
+    .act-features{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+    .feature-item{display:flex;align-items:flex-start;gap:.7rem}
+    .feature-icon{width:28px;height:28px;border-radius:7px;background:rgba(212,160,23,.1);display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0;margin-top:2px}
+    .feature-text{font-size:.88rem;line-height:1.5;color:rgba(232,224,208,.6)}
+    .feature-text strong{display:block;color:rgba(232,224,208,.85);font-weight:500;margin-bottom:.15rem}
+    /* Footer */
+    footer{background:var(--navy);border-top:1px solid rgba(212,160,23,.12);padding:2.5rem 3rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+    html[dir="rtl"] footer{flex-direction:row-reverse}
+    .footer-left{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .footer-mid{display:flex;gap:2rem}
+    .footer-mid a{color:rgba(232,224,208,.4);text-decoration:none;font-size:.82rem;letter-spacing:.06em;transition:color .3s}
+    body[lang="ar"] .footer-mid a{font-family:'Tajawal',sans-serif;letter-spacing:0}
+    .footer-mid a:hover{color:var(--gold-light)}
+    .footer-right{font-size:.75rem;color:rgba(232,224,208,.3);font-family:'Space Mono',monospace}
+    @media(max-width:900px){.activity-section{padding:5rem 1.5rem;min-height:auto}.act-inner{flex-direction:column !important;gap:3rem}.act-visual{flex:none;width:100%}.act-icon-wrap{width:220px;height:220px;font-size:5rem;margin:0 auto}.act-nav{display:none}.act-features{grid-template-columns:1fr}}
+    @media(max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}footer{flex-direction:column;gap:1.5rem;text-align:center}.page-hero{padding:8rem 1.5rem 3.5rem}}
+  </style>
+</head>
+<body>
+  <div id="progress-bar"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <canvas id="starfield"></canvas>
+
+  <div class="act-nav" id="actNav">
+    <div class="act-dot active" data-target="act1"><span class="dot-tip" data-fr="Sciences" data-ar="العلوم">Sciences</span></div>
+    <div class="act-dot" data-target="act2"><span class="dot-tip" data-fr="Innovation" data-ar="الابتكار">Innovation</span></div>
+    <div class="act-dot" data-target="act3"><span class="dot-tip" data-fr="Développement" data-ar="التطوير">Développement</span></div>
+    <div class="act-dot" data-target="act4"><span class="dot-tip" data-fr="Culture" data-ar="الثقافة">Culture</span></div>
+    <div class="act-dot" data-target="act5"><span class="dot-tip" data-fr="Partenariats" data-ar="الشراكات">Partenariats</span></div>
+    <div class="act-dot" data-target="act6"><span class="dot-tip" data-fr="Social" data-ar="الاجتماعي">Social</span></div>
+  </div>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">EU</div>
+      <span class="nav-logo-text">EUREKA ESEFJ</span>
+    </a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="index.html" data-fr="Accueil" data-ar="الرئيسية">Accueil</a></li>
+        <li><a href="activites.html" class="active" data-fr="Activités" data-ar="الأنشطة">Activités</a></li>
+        <li><a href="equipe.html" data-fr="Notre Équipe" data-ar="فريقنا">Notre Équipe</a></li>
+        <li><a href="contact.html" data-fr="Contact" data-ar="تواصل معنا">Contact</a></li>
+      </ul>
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="fr">FR</button>
+        <button class="lang-btn" data-lang="ar">AR</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-label" data-fr="Ce que nous faisons" data-ar="ما نقوم به">Ce que nous faisons</div>
+    <h1 data-fr="Nos <span>Activités</span>" data-ar="<span>أنشطتنا</span>">Nos <span>Activités</span></h1>
+    <p data-fr="Six domaines d'action pour former, inspirer et engager les étudiants de l'ESEFJ." data-ar="ستة محاور عمل لتكوين وإلهام وإشراك طلاب المدرسة العليا للتربية والتكوين.">Six domaines d'action pour former, inspirer et engager les étudiants de l'ESEFJ.</p>
+    <div class="page-hero-divider"></div>
+  </div>
+
+  <!-- ACT 1 -->
+  <section class="activity-section act-1" id="act1">
+    <div class="act-bg act-bg-science"></div>
+    <div class="act-inner">
+      <div class="act-visual reveal"><div class="act-icon-wrap" data-num="01">🔬</div></div>
+      <div class="act-text reveal reveal-delay-2">
+        <div class="act-number" data-fr="Activité 01" data-ar="النشاط 01">Activité 01</div>
+        <h2 data-fr="Ateliers Scientifiques" data-ar="الورشات العلمية">Ateliers Scientifiques</h2>
+        <p class="lead" data-fr="Des séances pratiques encadrées qui plongent les étudiants au cœur des sciences naturelles, physiques et mathématiques, à travers des expériences réelles et des conférences d'experts." data-ar="جلسات تطبيقية موجَّهة تغمر الطلاب في قلب العلوم الطبيعية والفيزيائية والرياضيات من خلال تجارب حقيقية ومحاضرات خبراء.">Des séances pratiques encadrées qui plongent les étudiants au cœur des sciences naturelles, physiques et mathématiques, à travers des expériences réelles et des conférences d'experts.</p>
+        <div class="tag-row">
+          <span class="tag">Physique / الفيزياء</span><span class="tag">Chimie / الكيمياء</span><span class="tag">Biologie / الأحياء</span><span class="tag">Maths / الرياضيات</span>
+        </div>
+        <div class="act-features">
+          <div class="feature-item"><div class="feature-icon">🧪</div><div class="feature-text"><strong data-fr="Expériences pratiques" data-ar="تجارب عملية">Expériences pratiques</strong><span data-fr="Manipulations en laboratoire et démonstrations." data-ar="تجارب مخبرية وعروض توضيحية.">Manipulations en laboratoire et démonstrations.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">🎤</div><div class="feature-text"><strong data-fr="Conférences" data-ar="محاضرات">Conférences</strong><span data-fr="Intervenants experts de l'université et de l'industrie." data-ar="متحدثون خبراء من الجامعة والصناعة.">Intervenants experts de l'université et de l'industrie.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">📚</div><div class="feature-text"><strong data-fr="Supports de cours" data-ar="مواد تعليمية">Supports de cours</strong><span data-fr="Fiches et ressources partagées après chaque session." data-ar="ملخصات وموارد مشتركة بعد كل جلسة.">Fiches et ressources partagées après chaque session.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">🏆</div><div class="feature-text"><strong data-fr="Concours scientifiques" data-ar="مسابقات علمية">Concours scientifiques</strong><span data-fr="Olympiades et défis interuniversitaires." data-ar="أولمبياد وتحديات بين الجامعات.">Olympiades et défis interuniversitaires.</span></div></div>
+        </div>
+        <a href="contact.html" class="btn-primary" data-fr="Participer aux ateliers" data-ar="المشاركة في الورشات">Participer aux ateliers</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 2 -->
+  <section class="activity-section act-2" id="act2">
+    <div class="act-bg act-bg-innov"></div>
+    <div class="act-inner">
+      <div class="act-visual reveal"><div class="act-icon-wrap" data-num="02">💡</div></div>
+      <div class="act-text reveal reveal-delay-2">
+        <div class="act-number" data-fr="Activité 02" data-ar="النشاط 02">Activité 02</div>
+        <h2 data-fr="Innovation & Créativité" data-ar="الابتكار والإبداع">Innovation &amp; Créativité</h2>
+        <p class="lead" data-fr="Hackathons, challenges de design thinking et bootcamps créatifs pour stimuler l'esprit inventif et transformer des idées en projets concrets." data-ar="هاكاثون وتحديات التفكير التصميمي ودورات إبداعية لتحفيز روح الاختراع وتحويل الأفكار إلى مشاريع ملموسة.">Hackathons, challenges de design thinking et bootcamps créatifs pour stimuler l'esprit inventif et transformer des idées en projets concrets.</p>
+        <div class="tag-row">
+          <span class="tag">Hackathon</span><span class="tag">Design Thinking</span><span class="tag">Startup / ريادة أعمال</span><span class="tag">Tech / التكنولوجيا</span>
+        </div>
+        <div class="act-features">
+          <div class="feature-item"><div class="feature-icon">⚡</div><div class="feature-text"><strong data-fr="Hackathons 48h" data-ar="هاكاثون 48 ساعة">Hackathons 48h</strong><span data-fr="Résoudre de vrais problèmes en équipe sous contrainte." data-ar="حل مشاكل حقيقية ضمن فريق وتحت ضغط الوقت.">Résoudre de vrais problèmes en équipe sous contrainte.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">🗺️</div><div class="feature-text"><strong data-fr="Design Thinking" data-ar="التفكير التصميمي">Design Thinking</strong><span data-fr="Méthodologie centrée sur l'humain pour innover." data-ar="منهجية تتمحور حول الإنسان للابتكار الفعّال.">Méthodologie centrée sur l'humain pour innover.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">🤖</div><div class="feature-text"><strong data-fr="Tech & IA" data-ar="التكنولوجيا والذكاء الاصطناعي">Tech &amp; IA</strong><span data-fr="Initiation aux nouvelles technologies et à l'intelligence artificielle." data-ar="مقدمة في التقنيات الحديثة والذكاء الاصطناعي.">Initiation aux nouvelles technologies et à l'intelligence artificielle.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">🎯</div><div class="feature-text"><strong data-fr="Pitch & Présentation" data-ar="العرض والتقديم">Pitch &amp; Présentation</strong><span data-fr="Défendre son projet devant un jury." data-ar="الدفاع عن مشروعك أمام لجنة التحكيم.">Défendre son projet devant un jury.</span></div></div>
+        </div>
+        <a href="contact.html" class="btn-primary" data-fr="Rejoindre un hackathon" data-ar="الانضمام لهاكاثون">Rejoindre un hackathon</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 3 -->
+  <section class="activity-section act-3" id="act3">
+    <div class="act-bg act-bg-dev"></div>
+    <div class="act-inner">
+      <div class="act-visual reveal"><div class="act-icon-wrap" data-num="03">🌱</div></div>
+      <div class="act-text reveal reveal-delay-2">
+        <div class="act-number" data-fr="Activité 03" data-ar="النشاط 03">Activité 03</div>
+        <h2 data-fr="Développement Personnel" data-ar="التطوير الشخصي">Développement Personnel</h2>
+        <p class="lead" data-fr="Formations en communication, leadership, gestion du temps et de projet pour développer les compétences clés qui feront la différence dans votre parcours." data-ar="تدريبات في التواصل والقيادة وإدارة الوقت والمشاريع لتطوير المهارات الأساسية التي تُحدث الفارق في مسيرتك.">Formations en communication, leadership, gestion du temps et de projet pour développer les compétences clés qui feront la différence dans votre parcours.</p>
+        <div class="tag-row">
+          <span class="tag">Leadership / القيادة</span><span class="tag">Communication / التواصل</span><span class="tag">Gestion de projet / إدارة المشاريع</span><span class="tag">CV &amp; Entretien / السيرة الذاتية</span>
+        </div>
+        <div class="act-features">
+          <div class="feature-item"><div class="feature-icon">🗣️</div><div class="feature-text"><strong data-fr="Prise de parole" data-ar="الخطابة">Prise de parole</strong><span data-fr="Techniques pour s'exprimer avec confiance en public." data-ar="تقنيات للتعبير بثقة أمام الجمهور.">Techniques pour s'exprimer avec confiance en public.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">📋</div><div class="feature-text"><strong data-fr="Gestion de projet" data-ar="إدارة المشاريع">Gestion de projet</strong><span data-fr="Méthodes agiles et outils pratiques de planification." data-ar="المنهجيات الرشيقة وأدوات التخطيط العملي.">Méthodes agiles et outils pratiques de planification.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">🧘</div><div class="feature-text"><strong data-fr="Bien-être étudiant" data-ar="رفاهية الطالب">Bien-être étudiant</strong><span data-fr="Gestion du stress et équilibre études-vie personnelle." data-ar="إدارة الضغط والتوازن بين الدراسة والحياة الشخصية.">Gestion du stress et équilibre études-vie personnelle.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">💼</div><div class="feature-text"><strong data-fr="Préparation pro" data-ar="التحضير المهني">Préparation pro</strong><span data-fr="CV, LinkedIn, simulation d'entretiens d'embauche." data-ar="السيرة الذاتية، LinkedIn، محاكاة مقابلات العمل.">CV, LinkedIn, simulation d'entretiens d'embauche.</span></div></div>
+        </div>
+        <a href="contact.html" class="btn-primary" data-fr="S'inscrire aux formations" data-ar="التسجيل في التدريبات">S'inscrire aux formations</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 4 -->
+  <section class="activity-section act-4" id="act4">
+    <div class="act-bg act-bg-culture"></div>
+    <div class="act-inner">
+      <div class="act-visual reveal"><div class="act-icon-wrap" data-num="04">🎭</div></div>
+      <div class="act-text reveal reveal-delay-2">
+        <div class="act-number" data-fr="Activité 04" data-ar="النشاط 04">Activité 04</div>
+        <h2 data-fr="Culture & Arts" data-ar="الثقافة والفنون">Culture &amp; Arts</h2>
+        <p class="lead" data-fr="Événements culturels, expositions, ciné-clubs, débats littéraires et activités artistiques qui enrichissent la vie estudiantine et célèbrent la diversité culturelle." data-ar="فعاليات ثقافية ومعارض وأندية سينما ونقاشات أدبية وأنشطة فنية تُثري الحياة الطلابية وتحتفي بالتنوع الثقافي.">Événements culturels, expositions, ciné-clubs, débats littéraires et activités artistiques qui enrichissent la vie estudiantine et célèbrent la diversité culturelle.</p>
+        <div class="tag-row">
+          <span class="tag">Théâtre / المسرح</span><span class="tag">Cinéma / السينما</span><span class="tag">Littérature / الأدب</span><span class="tag">Arts visuels / الفنون البصرية</span>
+        </div>
+        <div class="act-features">
+          <div class="feature-item"><div class="feature-icon">🎬</div><div class="feature-text"><strong data-fr="Ciné-club" data-ar="نادي السينما">Ciné-club</strong><span data-fr="Projections et débats autour de films marquants." data-ar="عروض ونقاشات حول أفلام بارزة.">Projections et débats autour de films marquants.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">📖</div><div class="feature-text"><strong data-fr="Club de lecture" data-ar="نادي القراءة">Club de lecture</strong><span data-fr="Discussions mensuelles autour d'œuvres choisies." data-ar="نقاشات شهرية حول أعمال أدبية مختارة.">Discussions mensuelles autour d'œuvres choisies.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">🎨</div><div class="feature-text"><strong data-fr="Expositions" data-ar="معارض">Expositions</strong><span data-fr="Mettre en valeur les créations artistiques des étudiants." data-ar="إبراز الإبداعات الفنية للطلاب وتقديمها للجمهور.">Mettre en valeur les créations artistiques des étudiants.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">🎉</div><div class="feature-text"><strong data-fr="Événements festifs" data-ar="فعاليات احتفالية">Événements festifs</strong><span data-fr="Soirées culturelles et célébrations de la diversité." data-ar="ليالٍ ثقافية واحتفالات بالتنوع البشري.">Soirées culturelles et célébrations de la diversité.</span></div></div>
+        </div>
+        <a href="contact.html" class="btn-primary" data-fr="Découvrir les événements" data-ar="اكتشف الفعاليات">Découvrir les événements</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 5 -->
+  <section class="activity-section act-5" id="act5">
+    <div class="act-bg act-bg-partner"></div>
+    <div class="act-inner">
+      <div class="act-visual reveal"><div class="act-icon-wrap" data-num="05">🤝</div></div>
+      <div class="act-text reveal reveal-delay-2">
+        <div class="act-number" data-fr="Activité 05" data-ar="النشاط 05">Activité 05</div>
+        <h2 data-fr="Partenariats & Réseaux" data-ar="الشراكات والشبكات">Partenariats &amp; Réseaux</h2>
+        <p class="lead" data-fr="Collaborations avec des entreprises, institutions académiques et autres clubs pour ouvrir des portes et créer des opportunités uniques pour nos membres." data-ar="تعاون مع الشركات والمؤسسات الأكاديمية والأندية الأخرى لفتح الآفاق وخلق فرص استثنائية لأعضائنا.">Collaborations avec des entreprises, institutions académiques et autres clubs pour ouvrir des portes et créer des opportunités uniques pour nos membres.</p>
+        <div class="tag-row">
+          <span class="tag">Entreprises / شركات</span><span class="tag">Universités / جامعات</span><span class="tag">ONG / منظمات</span><span class="tag">International / دولي</span>
+        </div>
+        <div class="act-features">
+          <div class="feature-item"><div class="feature-icon">🏢</div><div class="feature-text"><strong data-fr="Visites d'entreprises" data-ar="زيارات للشركات">Visites d'entreprises</strong><span data-fr="Découvrir le monde professionnel de l'intérieur." data-ar="الاطلاع على عالم المهن من الداخل.">Découvrir le monde professionnel de l'intérieur.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">🌐</div><div class="feature-text"><strong data-fr="Échanges inter-clubs" data-ar="تبادلات بين الأندية">Échanges inter-clubs</strong><span data-fr="Collaborations avec des clubs d'autres universités." data-ar="تعاون مع أندية من جامعات مختلفة.">Collaborations avec des clubs d'autres universités.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">📜</div><div class="feature-text"><strong data-fr="Conventions" data-ar="اتفاقيات">Conventions</strong><span data-fr="Accords formels pour des opportunités de stage et d'emploi." data-ar="اتفاقيات رسمية لفرص التدريب والتوظيف.">Accords formels pour des opportunités de stage et d'emploi.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">✈️</div><div class="feature-text"><strong data-fr="Mobilité" data-ar="التنقل والتمثيل">Mobilité</strong><span data-fr="Participer à des forums et événements hors d'El Jadida." data-ar="المشاركة في منتديات وفعاليات خارج الجديدة.">Participer à des forums et événements hors d'El Jadida.</span></div></div>
+        </div>
+        <a href="contact.html" class="btn-primary" data-fr="Devenir partenaire" data-ar="كن شريكاً">Devenir partenaire</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ACT 6 -->
+  <section class="activity-section act-6" id="act6">
+    <div class="act-bg act-bg-social"></div>
+    <div class="act-inner">
+      <div class="act-visual reveal"><div class="act-icon-wrap" data-num="06">🌍</div></div>
+      <div class="act-text reveal reveal-delay-2">
+        <div class="act-number" data-fr="Activité 06" data-ar="النشاط 06">Activité 06</div>
+        <h2 data-fr="Engagement Social" data-ar="الانخراط الاجتماعي">Engagement Social</h2>
+        <p class="lead" data-fr="Projets communautaires, campagnes de sensibilisation et actions de volontariat pour un impact positif et durable dans la société d'El Jadida et au-delà." data-ar="مشاريع مجتمعية وحملات توعوية وأعمال تطوعية من أجل أثر إيجابي ومستدام في مجتمع الجديدة وما وراءه.">Projets communautaires, campagnes de sensibilisation et actions de volontariat pour un impact positif et durable dans la société d'El Jadida et au-delà.</p>
+        <div class="tag-row">
+          <span class="tag">Volontariat / التطوع</span><span class="tag">Environnement / البيئة</span><span class="tag">Éducation / التعليم</span><span class="tag">Solidarité / التضامن</span>
+        </div>
+        <div class="act-features">
+          <div class="feature-item"><div class="feature-icon">♻️</div><div class="feature-text"><strong data-fr="Environnement" data-ar="البيئة">Environnement</strong><span data-fr="Campagnes de nettoyage et sensibilisation écologique." data-ar="حملات تنظيف وتوعية بيئية.">Campagnes de nettoyage et sensibilisation écologique.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">📚</div><div class="feature-text"><strong data-fr="Soutien scolaire" data-ar="الدعم المدرسي">Soutien scolaire</strong><span data-fr="Aide aux élèves des lycées et collèges d'El Jadida." data-ar="مساعدة تلاميذ الثانويات والإعداديات بالجديدة.">Aide aux élèves des lycées et collèges d'El Jadida.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">❤️</div><div class="feature-text"><strong data-fr="Actions humanitaires" data-ar="أعمال إنسانية">Actions humanitaires</strong><span data-fr="Collectes de fonds et aide aux populations vulnérables." data-ar="جمع التبرعات ومساعدة الفئات الهشة.">Collectes de fonds et aide aux populations vulnérables.</span></div></div>
+          <div class="feature-item"><div class="feature-icon">📢</div><div class="feature-text"><strong data-fr="Sensibilisation" data-ar="التوعية">Sensibilisation</strong><span data-fr="Campagnes sur la santé, les droits et la citoyenneté." data-ar="حملات حول الصحة والحقوق والمواطنة.">Campagnes sur la santé, les droits et la citoyenneté.</span></div></div>
+        </div>
+        <a href="contact.html" class="btn-primary" data-fr="Rejoindre nos actions" data-ar="انضم لأعمالنا">Rejoindre nos actions</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-left">EUREKA ESEFJ</div>
+    <nav class="footer-mid">
+      <a href="index.html" data-fr="Accueil" data-ar="الرئيسية">Accueil</a>
+      <a href="activites.html" data-fr="Activités" data-ar="الأنشطة">Activités</a>
+      <a href="equipe.html" data-fr="Équipe" data-ar="الفريق">Équipe</a>
+      <a href="contact.html" data-fr="Contact" data-ar="تواصل">Contact</a>
+    </nav>
+    <div class="footer-right">© 2025 · El Jadida, Maroc</div>
+  </footer>
+
+  <script>
+  function setLang(lang){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.setAttribute('lang',lang);document.querySelectorAll('[data-fr][data-ar]').forEach(el=>{const val=el.dataset[lang];if(!val)return;if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){el.placeholder=val;}else{el.innerHTML=val;}});document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));localStorage.setItem('eureka-lang',lang);}
+  document.querySelectorAll('.lang-btn').forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.lang)));
+  const sL=localStorage.getItem('eureka-lang')||'fr';if(sL==='ar')setLang('ar');
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');let mx=0,my=0,rx=0,ry=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});(function a(){cursor.style.left=mx+'px';cursor.style.top=my+'px';rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();document.querySelectorAll('a,button,input,textarea').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';ring.style.width='50px';ring.style.height='50px';});el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';ring.style.width='36px';ring.style.height='36px';});});
+  const bar=document.getElementById('progress-bar');document.addEventListener('scroll',()=>{bar.style.width=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100,100)+'%';});
+  const cv=document.getElementById('starfield'),cx=cv.getContext('2d');function rsz(){cv.width=window.innerWidth;cv.height=window.innerHeight;}rsz();window.addEventListener('resize',rsz);const st=Array.from({length:160},()=>({x:Math.random(),y:Math.random(),r:Math.random()*1.4+.3,speed:Math.random()*.00025+.00004,opacity:Math.random()*.65+.2,ts:Math.random()*.018+.004,to:Math.random()*Math.PI*2}));(function draw(t){cx.clearRect(0,0,cv.width,cv.height);st.forEach(s=>{s.y-=s.speed;if(s.y<0){s.y=1;s.x=Math.random();}const op=s.opacity*(.55+.45*Math.sin(t*s.ts+s.to));cx.beginPath();cx.arc(s.x*cv.width,s.y*cv.height,s.r,0,Math.PI*2);cx.fillStyle=`rgba(212,175,55,${op})`;cx.fill();});requestAnimationFrame(draw);})(0);
+  const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target);}}),{threshold:.1});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  const sections=['act1','act2','act3','act4','act5','act6'],dots=document.querySelectorAll('.act-dot');dots.forEach((dot,i)=>{dot.addEventListener('click',()=>{document.getElementById(sections[i]).scrollIntoView({behavior:'smooth'});});});const sectionEls=sections.map(id=>document.getElementById(id));const scrollIO=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const idx=sections.indexOf(e.target.id);dots.forEach(d=>d.classList.remove('active'));if(idx>=0)dots[idx].classList.add('active');}});},{threshold:.4});sectionEls.forEach(s=>scrollIO.observe(s));
+  </script>
+</body>
+</html>

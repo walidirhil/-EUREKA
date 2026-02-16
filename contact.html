@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<head>
+  <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>EUREKA ESEFJ – Contact</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--gold:#D4A017;--gold-light:#F5C842;--navy:#0A1628;--navy-mid:#142240;--navy-light:#1E3360;--cream:#F8F3E8;--text:#E8E0D0;--accent:#4FC3F7}
+    html{scroll-behavior:smooth}
+    body{background:var(--navy);color:var(--text);font-family:'DM Sans',sans-serif;overflow-x:hidden;cursor:none}
+    body[lang="ar"]{font-family:'Tajawal',sans-serif}
+    body[lang="ar"] p,body[lang="ar"] li{line-height:2;letter-spacing:0}
+    .cursor{position:fixed;top:0;left:0;width:12px;height:12px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .2s,height .2s;mix-blend-mode:difference}
+    .cursor-ring{position:fixed;top:0;left:0;width:36px;height:36px;border:1.5px solid var(--gold);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .25s,height .25s;opacity:.6}
+    #progress-bar{position:fixed;top:0;left:0;height:2px;width:0%;background:linear-gradient(90deg,var(--gold),var(--gold-light),var(--accent));z-index:200}
+    #starfield{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem 3rem;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to bottom,rgba(10,22,40,.97),rgba(10,22,40,.7));backdrop-filter:blur(10px);border-bottom:1px solid rgba(212,160,23,.15);animation:slideDown .7s ease forwards}
+    @keyframes slideDown{from{transform:translateY(-100%);opacity:0}to{transform:translateY(0);opacity:1}}
+    .nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+    .nav-logo-icon{width:40px;height:40px;background:linear-gradient(135deg,var(--gold),var(--gold-light));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-weight:700;font-size:.8rem;color:var(--navy);box-shadow:0 0 20px rgba(212,160,23,.35);animation:pulseGlow 3s ease-in-out infinite}
+    @keyframes pulseGlow{0%,100%{box-shadow:0 0 20px rgba(212,160,23,.35)}50%{box-shadow:0 0 35px rgba(212,160,23,.65),0 0 60px rgba(212,160,23,.15)}}
+    .nav-logo-text{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;letter-spacing:.05em}
+    .nav-right{display:flex;align-items:center;gap:2rem}
+    .nav-links{display:flex;gap:1.8rem;list-style:none}
+    .nav-links a{color:var(--text);text-decoration:none;font-size:.85rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;position:relative;padding-bottom:4px;transition:color .3s}
+    body[lang="ar"] .nav-links a{letter-spacing:0;text-transform:none;font-size:.92rem}
+    .nav-links a::after{content:'';position:absolute;bottom:0;left:0;width:0;height:1.5px;background:var(--gold);transition:width .3s}
+    html[dir="rtl"] .nav-links a::after{left:auto;right:0}
+    .nav-links a:hover,.nav-links a.active{color:var(--gold-light)}
+    .nav-links a:hover::after,.nav-links a.active::after{width:100%}
+    .lang-switcher{display:flex;align-items:center;background:rgba(212,160,23,.1);border:1px solid rgba(212,160,23,.25);border-radius:100px;padding:3px;gap:2px}
+    .lang-btn{background:transparent;border:none;cursor:pointer;padding:.28rem .75rem;border-radius:100px;font-family:'Space Mono',monospace;font-size:.68rem;font-weight:700;letter-spacing:.06em;color:rgba(212,160,23,.55);transition:all .25s}
+    .lang-btn.active{background:var(--gold);color:var(--navy);box-shadow:0 2px 10px rgba(212,160,23,.4)}
+    .btn-primary{background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);padding:.85rem 2.2rem;border-radius:6px;border:none;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.95rem;cursor:pointer;text-decoration:none;display:inline-block;transition:all .3s;box-shadow:0 4px 20px rgba(212,160,23,.3);letter-spacing:.04em}
+    body[lang="ar"] .btn-primary{font-family:'Tajawal',sans-serif;letter-spacing:0;font-size:1rem}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(212,160,23,.5)}
+    .reveal{opacity:0;transform:translateY(35px);transition:opacity .75s,transform .75s}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+    .reveal-delay-1{transition-delay:.1s}.reveal-delay-2{transition-delay:.2s}.reveal-delay-3{transition-delay:.3s}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+    .page-hero{position:relative;padding:10rem 3rem 5rem;text-align:center;overflow:hidden;z-index:1}
+    .page-hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 80%,rgba(212,160,23,.1),transparent 65%);pointer-events:none}
+    .page-hero-label{font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;justify-content:center;gap:1rem;margin-bottom:1rem;opacity:0;animation:fadeUp .7s ease .2s forwards}
+    body[lang="ar"] .page-hero-label{font-family:'Tajawal',sans-serif;letter-spacing:0}
+    .page-hero-label::before,.page-hero-label::after{content:'';display:block;width:30px;height:1px;background:var(--gold)}
+    .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.5rem,6vw,5rem);font-weight:900;color:var(--cream);line-height:1.1;letter-spacing:-.02em;opacity:0;animation:fadeUp .8s ease .35s forwards}
+    body[lang="ar"] .page-hero h1{font-family:'Tajawal',sans-serif;line-height:1.4}
+    .page-hero h1 span{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .page-hero p{font-size:1.05rem;color:rgba(232,224,208,.65);max-width:550px;margin:1.2rem auto 0;font-weight:300;line-height:1.75;opacity:0;animation:fadeUp .8s ease .5s forwards}
+    .page-hero-divider{width:60px;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:1.8rem auto 0;opacity:0;animation:fadeUp .7s ease .6s forwards}
+    /* Contact */
+    #contact-main{position:relative;z-index:1;padding:3rem 3rem 6rem;background:linear-gradient(180deg,var(--navy) 0%,var(--navy-mid) 100%)}
+    .contact-wrap{max-width:1050px;margin:0 auto}
+    .contact-grid{display:grid;grid-template-columns:1fr 1.5fr;gap:5rem;align-items:start}
+    html[dir="rtl"] .contact-grid{direction:rtl}
+    .contact-info-col .slabel{font-family:'Space Mono',monospace;font-size:.65rem;letter-spacing:.2em;color:var(--gold);text-transform:uppercase;display:flex;align-items:center;gap:.8rem;margin-bottom:.9rem}
+    body[lang="ar"] .contact-info-col .slabel{font-family:'Tajawal',sans-serif;letter-spacing:0}
+    .contact-info-col .slabel::before{content:'';width:26px;height:1px;background:var(--gold)}
+    html[dir="rtl"] .contact-info-col .slabel::before{display:none}
+    html[dir="rtl"] .contact-info-col .slabel::after{content:'';width:26px;height:1px;background:var(--gold)}
+    .contact-info-col h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.5rem);font-weight:700;color:var(--cream);line-height:1.25;margin-bottom:1.2rem}
+    body[lang="ar"] .contact-info-col h2{font-family:'Tajawal',sans-serif;font-weight:900;line-height:1.4}
+    .contact-info-col .intro{font-size:1rem;line-height:1.82;color:rgba(232,224,208,.62);font-weight:300;margin-bottom:2.5rem}
+    .contact-detail{display:flex;align-items:center;gap:1rem;padding:1.1rem 0;border-bottom:1px solid rgba(212,160,23,.1)}
+    .contact-detail:last-of-type{border-bottom:none}
+    .cd-icon{width:42px;height:42px;border-radius:10px;background:rgba(212,160,23,.1);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+    .cd-text label{display:block;font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.12em;color:rgba(212,160,23,.65);text-transform:uppercase;margin-bottom:.2rem}
+    body[lang="ar"] .cd-text label{font-family:'Tajawal',sans-serif;letter-spacing:0;text-transform:none}
+    .cd-text span{font-size:.92rem;color:var(--text)}
+    .social-row{display:flex;gap:.8rem;margin-top:2rem}
+    .social-btn{width:42px;height:42px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(212,160,23,.18);display:flex;align-items:center;justify-content:center;font-size:1.1rem;text-decoration:none;transition:all .3s}
+    .social-btn:hover{background:rgba(212,160,23,.1);border-color:var(--gold);transform:translateY(-3px)}
+    /* Form */
+    .form-title{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:700;color:var(--cream);margin-bottom:.4rem}
+    body[lang="ar"] .form-title{font-family:'Tajawal',sans-serif;font-weight:900}
+    .form-subtitle{font-size:.88rem;color:rgba(232,224,208,.45);margin-bottom:2rem}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+    .form-group{display:flex;flex-direction:column;gap:.5rem;margin-bottom:1.2rem}
+    .form-group label{font-family:'Space Mono',monospace;font-size:.62rem;letter-spacing:.12em;text-transform:uppercase;color:rgba(212,160,23,.7)}
+    body[lang="ar"] .form-group label{font-family:'Tajawal',sans-serif;letter-spacing:0;text-transform:none;font-size:.78rem}
+    .form-group input,.form-group textarea,.form-group select{background:rgba(255,255,255,.04);border:1px solid rgba(212,160,23,.18);border-radius:9px;padding:.88rem 1.1rem;color:var(--text);font-family:'DM Sans',sans-serif;font-size:.95rem;outline:none;resize:vertical;transition:border-color .3s,background .3s;-webkit-appearance:none}
+    body[lang="ar"] .form-group input,body[lang="ar"] .form-group textarea,body[lang="ar"] .form-group select{font-family:'Tajawal',sans-serif;text-align:right}
+    .form-group select{cursor:pointer}
+    .form-group select option{background:var(--navy-mid)}
+    .form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:var(--gold);background:rgba(212,160,23,.04)}
+    .form-group textarea{min-height:130px}
+    .form-check{display:flex;align-items:flex-start;gap:.8rem;margin-bottom:1.5rem}
+    .form-check input[type="checkbox"]{width:17px;height:17px;margin-top:2px;accent-color:var(--gold);cursor:pointer;flex-shrink:0}
+    .form-check label{font-size:.85rem;color:rgba(232,224,208,.5);line-height:1.5;cursor:pointer}
+    body[lang="ar"] .form-check label{font-family:'Tajawal',sans-serif}
+    .submit-btn{width:100%;padding:1rem;background:linear-gradient(135deg,var(--gold),var(--gold-light));color:var(--navy);border:none;border-radius:9px;font-family:'DM Sans',sans-serif;font-size:1rem;font-weight:700;letter-spacing:.05em;cursor:pointer;transition:all .3s;box-shadow:0 4px 20px rgba(212,160,23,.28)}
+    body[lang="ar"] .submit-btn{font-family:'Tajawal',sans-serif;letter-spacing:0;font-size:1.05rem}
+    .submit-btn:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(212,160,23,.45)}
+    .success-box{display:none;background:rgba(129,199,132,.08);border:1px solid rgba(129,199,132,.3);border-radius:12px;padding:2rem;text-align:center;margin-top:1.5rem}
+    .success-box .sicon{font-size:2.5rem;margin-bottom:.8rem}
+    .success-box h4{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--cream);margin-bottom:.5rem}
+    body[lang="ar"] .success-box h4{font-family:'Tajawal',sans-serif}
+    .success-box p{font-size:.9rem;color:rgba(232,224,208,.6)}
+    /* Join */
+    #join{position:relative;z-index:1;background:var(--navy-mid);border-top:1px solid rgba(212,160,23,.1);padding:5rem 3rem;text-align:center}
+    #join h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:var(--cream);margin-bottom:1rem}
+    body[lang="ar"] #join h2{font-family:'Tajawal',sans-serif;font-weight:900}
+    #join h2 span{background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    #join p{font-size:1rem;color:rgba(232,224,208,.6);max-width:500px;margin:0 auto 2.5rem;font-weight:300}
+    .join-steps{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:3rem}
+    html[dir="rtl"] .join-steps{flex-direction:row-reverse}
+    .join-step{display:flex;flex-direction:column;align-items:center;gap:.8rem;max-width:180px;text-align:center}
+    .step-num{width:44px;height:44px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:.85rem;font-weight:700;color:var(--gold)}
+    .step-label{font-size:.88rem;color:rgba(232,224,208,.6);line-height:1.5}
+    body[lang="ar"] .step-label{font-family:'Tajawal',sans-serif}
+    .step-arrow{font-size:1.2rem;color:rgba(212,160,23,.3);align-self:center;margin-top:-1.5rem}
+    /* Footer */
+    footer{background:var(--navy);border-top:1px solid rgba(212,160,23,.12);padding:2.5rem 3rem;display:flex;justify-content:space-between;align-items:center;position:relative;z-index:1}
+    html[dir="rtl"] footer{flex-direction:row-reverse}
+    .footer-left{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,var(--gold-light),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .footer-mid{display:flex;gap:2rem}
+    .footer-mid a{color:rgba(232,224,208,.4);text-decoration:none;font-size:.82rem;letter-spacing:.06em;transition:color .3s}
+    body[lang="ar"] .footer-mid a{font-family:'Tajawal',sans-serif;letter-spacing:0}
+    .footer-mid a:hover{color:var(--gold-light)}
+    .footer-right{font-size:.75rem;color:rgba(232,224,208,.3);font-family:'Space Mono',monospace}
+    @media(max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}footer{flex-direction:column;gap:1.5rem;text-align:center}.contact-grid{grid-template-columns:1fr;gap:3rem}.form-row{grid-template-columns:1fr}#contact-main{padding:3rem 1.5rem 5rem}#join{padding:4rem 1.5rem}.page-hero{padding:8rem 1.5rem 3.5rem}}
+  </style>
+</head>
+<body>
+  <div id="progress-bar"></div>
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+  <canvas id="starfield"></canvas>
+
+  <nav>
+    <a href="index.html" class="nav-logo">
+      <div class="nav-logo-icon">EU</div>
+      <span class="nav-logo-text">EUREKA ESEFJ</span>
+    </a>
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="index.html" data-fr="Accueil" data-ar="الرئيسية">Accueil</a></li>
+        <li><a href="activites.html" data-fr="Activités" data-ar="الأنشطة">Activités</a></li>
+        <li><a href="equipe.html" data-fr="Notre Équipe" data-ar="فريقنا">Notre Équipe</a></li>
+        <li><a href="contact.html" class="active" data-fr="Contact" data-ar="تواصل معنا">Contact</a></li>
+      </ul>
+      <div class="lang-switcher">
+        <button class="lang-btn active" data-lang="fr">FR</button>
+        <button class="lang-btn" data-lang="ar">AR</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="page-hero">
+    <div class="page-hero-bg"></div>
+    <div class="page-hero-label" data-fr="Parlez-nous" data-ar="تحدث إلينا">Parlez-nous</div>
+    <h1 data-fr="Nous <span>Contacter</span>" data-ar="<span>تواصل</span> معنا">Nous <span>Contacter</span></h1>
+    <p data-fr="Une question, une idée ou envie de rejoindre l'aventure ? On est là pour vous." data-ar="سؤال، فكرة، أو رغبة في الانضمام؟ نحن هنا من أجلكم.">Une question, une idée ou envie de rejoindre l'aventure ? On est là pour vous.</p>
+    <div class="page-hero-divider"></div>
+  </div>
+
+  <section id="contact-main">
+    <div class="contact-wrap">
+      <div class="contact-grid">
+        <!-- LEFT INFO -->
+        <div class="contact-info-col reveal">
+          <div class="slabel" data-fr="Informations" data-ar="معلومات التواصل">Informations</div>
+          <h2 data-fr="Rejoins<br/>l'aventure EUREKA." data-ar="انضم إلى<br/>مغامرة يوريكا.">Rejoins<br/>l'aventure EUREKA.</h2>
+          <p class="intro" data-fr="Que tu sois étudiant à l'ESEFJ ou simplement curieux d'en savoir plus, nous sommes toujours heureux d'accueillir de nouvelles personnes dans notre communauté." data-ar="سواء كنت طالباً في ESEFJ أو مجرد فضولي، يسعدنا دائماً الترحيب بوجوه جديدة في مجتمعنا.">Que tu sois étudiant à l'ESEFJ ou simplement curieux d'en savoir plus, nous sommes toujours heureux d'accueillir de nouvelles personnes dans notre communauté.</p>
+
+          <div class="contact-detail">
+            <div class="cd-icon">📍</div>
+            <div class="cd-text">
+              <label data-fr="Adresse" data-ar="العنوان">Adresse</label>
+              <span>ESEFJ, El Jadida, Maroc</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="cd-icon">📧</div>
+            <div class="cd-text">
+              <label data-fr="Email" data-ar="البريد الإلكتروني">Email</label>
+              <span>eureka.esefj@gmail.com</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="cd-icon">📱</div>
+            <div class="cd-text">
+              <label data-fr="WhatsApp" data-ar="واتساب">WhatsApp</label>
+              <span>+212 6XX XXX XXX</span>
+            </div>
+          </div>
+          <div class="contact-detail">
+            <div class="cd-icon">🕐</div>
+            <div class="cd-text">
+              <label data-fr="Disponibilité" data-ar="أوقات الإجابة">Disponibilité</label>
+              <span data-fr="Lundi – Vendredi, 9h – 18h" data-ar="الاثنين – الجمعة، 9ص – 6م">Lundi – Vendredi, 9h – 18h</span>
+            </div>
+          </div>
+          <div class="social-row">
+            <a href="https://www.instagram.com/eureka_esefj/" class="social-btn" title="Instagram">📸</a>
+            <a href="mailto:eureka.esefj@gmail.com" class="social-btn" title="mail">💼</a>
+            <a href="https://www.tiktok.com/@eureka_esefj" class="social-btn" title="tiktok">▶️</a>
+          </div>"
+        </div>
+
+        <!-- RIGHT FORM -->
+        <div class="contact-form-col reveal reveal-delay-2">
+          <div class="form-title" data-fr="Envoie-nous un message" data-ar="أرسل لنا رسالة">Envoie-nous un message</div>
+          <div class="form-subtitle" data-fr="Nous répondons généralement dans les 24h ouvrables." data-ar="نرد عادةً في غضون 24 ساعة عمل.">Nous répondons généralement dans les 24h ouvrables.</div>
+
+          <div id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label data-fr="Prénom" data-ar="الاسم الأول">Prénom</label>
+                <input type="text" id="fname" data-fr="Mohamed" data-ar="محمد" placeholder="Mohamed"/>
+              </div>
+              <div class="form-group">
+                <label data-fr="Nom" data-ar="اسم العائلة">Nom</label>
+                <input type="text" id="lname" data-fr="Amine" data-ar="أمين" placeholder="Amine"/>
+              </div>
+            </div>
+            <div class="form-group">
+              <label data-fr="Email" data-ar="البريد الإلكتروني">Email</label>
+              <input type="email" id="email" data-fr="votre@email.com" data-ar="بريدك@example.com" placeholder="votre@email.com"/>
+            </div>
+            <div class="form-group">
+              <label data-fr="Objet" data-ar="الموضوع">Objet</label>
+              <select id="subject">
+                <option value="" disabled selected data-fr="Choisir un objet…" data-ar="اختر موضوعاً…">Choisir un objet…</option>
+                <option value="rejoindre" data-fr="Rejoindre le club" data-ar="الانضمام للنادي">Rejoindre le club</option>
+                <option value="activite" data-fr="Informations sur une activité" data-ar="معلومات عن نشاط">Informations sur une activité</option>
+                <option value="partenariat" data-fr="Proposition de partenariat" data-ar="اقتراح شراكة">Proposition de partenariat</option>
+                <option value="autre" data-fr="Autre" data-ar="أخرى">Autre</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label data-fr="Message" data-ar="الرسالة">Message</label>
+              <textarea id="message" data-fr="Parlez-nous de vous ou de votre projet…" data-ar="أخبرنا عنك أو عن مشروعك…" placeholder="Parlez-nous de vous ou de votre projet…"></textarea>
+            </div>
+            <div class="form-check">
+              <input type="checkbox" id="consent"/>
+              <label for="consent" data-fr="J'accepte que mes informations soient utilisées pour répondre à ma demande par l'équipe EUREKA ESEFJ." data-ar="أوافق على استخدام معلوماتي للرد على طلبي من قِبل فريق يوريكا ESEFJ.">J'accepte que mes informations soient utilisées pour répondre à ma demande par l'équipe EUREKA ESEFJ.</label>
+            </div>
+            <button class="submit-btn" id="submitBtn" onclick="handleSubmit()">
+              <span id="submitText" data-fr="Envoyer le message ✦" data-ar="إرسال الرسالة ✦">Envoyer le message ✦</span>
+            </button>
+          </div>
+
+          <div class="success-box" id="successBox">
+            <div class="sicon">✅</div>
+            <h4 data-fr="Message envoyé !" data-ar="تم إرسال رسالتك!">Message envoyé !</h4>
+            <p data-fr="Merci pour votre message. L'équipe EUREKA ESEFJ vous répondra dans les meilleurs délais." data-ar="شكراً على رسالتك. سيرد عليك فريق يوريكا ESEFJ في أقرب وقت ممكن.">Merci pour votre message. L'équipe EUREKA ESEFJ vous répondra dans les meilleurs délais.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOIN STEPS -->
+  <section id="join">
+    <h2 class="reveal" data-fr="Comment <span>rejoindre</span> le club ?" data-ar="كيف <span>تنضم</span> إلى النادي؟">Comment <span>rejoindre</span> le club ?</h2>
+    <p class="reveal reveal-delay-1" data-fr="C'est simple et ouvert à tous les étudiants de l'ESEFJ." data-ar="الأمر بسيط ومفتوح لجميع طلاب ESEFJ.">C'est simple et ouvert à tous les étudiants de l'ESEFJ.</p>
+
+    <div class="join-steps reveal reveal-delay-2">
+      <div class="join-step">
+        <div class="step-num">01</div>
+        <div class="step-label" data-fr="Remplis le formulaire de contact ci-dessus" data-ar="امل نموذج التواصل أعلاه">Remplis le formulaire de contact ci-dessus</div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="join-step">
+        <div class="step-num">02</div>
+        <div class="step-label" data-fr="Un membre de l'équipe te contacte" data-ar="يتواصل معك أحد أعضاء الفريق">Un membre de l'équipe te contacte</div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="join-step">
+        <div class="step-num">03</div>
+        <div class="step-label" data-fr="Participe à une réunion de bienvenue" data-ar="شارك في اجتماع الترحيب">Participe à une réunion de bienvenue</div>
+      </div>
+      <div class="step-arrow">→</div>
+      <div class="join-step">
+        <div class="step-num">04</div>
+        <div class="step-label" data-fr="Bienvenue dans la famille EUREKA !" data-ar="مرحباً بك في عائلة يوريكا!">Bienvenue dans la famille EUREKA !</div>
+      </div>
+    </div>
+
+    <a href="#contact-main" class="btn-primary reveal reveal-delay-3" data-fr="Envoyer ma candidature" data-ar="أرسل ترشيحي">Envoyer ma candidature</a>
+  </section>
+
+  <footer>
+    <div class="footer-left">EUREKA ESEFJ</div>
+    <nav class="footer-mid">
+      <a href="index.html" data-fr="Accueil" data-ar="الرئيسية">Accueil</a>
+      <a href="activites.html" data-fr="Activités" data-ar="الأنشطة">Activités</a>
+      <a href="equipe.html" data-fr="Équipe" data-ar="الفريق">Équipe</a>
+      <a href="contact.html" data-fr="Contact" data-ar="تواصل">Contact</a>
+    </nav>
+    <div class="footer-right">© 2025 · El Jadida, Maroc</div>
+  </footer>
+
+  <script>
+  function setLang(lang){
+    document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.body.setAttribute('lang',lang);
+    document.querySelectorAll('[data-fr][data-ar]').forEach(el=>{const val=el.dataset[lang];if(!val)return;if(el.tagName==='INPUT'||el.tagName==='TEXTAREA'){el.placeholder=val;}else if(el.tagName==='OPTION'){el.textContent=val;}else{el.innerHTML=val;}});
+    // Also translate select options
+    document.querySelectorAll('option[data-fr][data-ar]').forEach(opt=>{opt.textContent=opt.dataset[lang]||opt.textContent;});
+    document.querySelectorAll('.lang-btn').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
+    localStorage.setItem('eureka-lang',lang);
+  }
+  document.querySelectorAll('.lang-btn').forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.lang)));
+  const sL=localStorage.getItem('eureka-lang')||'fr';if(sL==='ar')setLang('ar');
+
+  function handleSubmit(){
+    const lang=document.documentElement.lang||'fr';
+    const fname=document.getElementById('fname').value.trim();
+    const email=document.getElementById('email').value.trim();
+    const msg=document.getElementById('message').value.trim();
+    const consent=document.getElementById('consent').checked;
+    const alertMsg=lang==='ar'?'يرجى ملء جميع الحقول والموافقة على الشروط.':'Veuillez remplir tous les champs et accepter les conditions.';
+    if(!fname||!email||!msg||!consent){alert(alertMsg);return;}
+    const form=document.getElementById('contactForm');
+    form.style.opacity='0';form.style.transform='translateY(10px)';
+    setTimeout(()=>{form.style.display='none';const sb=document.getElementById('successBox');sb.style.display='block';},400);
+  }
+
+  const cursor=document.getElementById('cursor'),ring=document.getElementById('cursorRing');let mx=0,my=0,rx=0,ry=0;document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});(function a(){cursor.style.left=mx+'px';cursor.style.top=my+'px';rx+=(mx-rx)*.14;ry+=(my-ry)*.14;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(a);})();document.querySelectorAll('a,button,input,textarea,select').forEach(el=>{el.addEventListener('mouseenter',()=>{cursor.style.width='20px';cursor.style.height='20px';ring.style.width='50px';ring.style.height='50px';});el.addEventListener('mouseleave',()=>{cursor.style.width='12px';cursor.style.height='12px';ring.style.width='36px';ring.style.height='36px';});});
+  const bar=document.getElementById('progress-bar');document.addEventListener('scroll',()=>{bar.style.width=Math.min(window.scrollY/(document.body.scrollHeight-window.innerHeight)*100,100)+'%';});
+  const cv=document.getElementById('starfield'),cx=cv.getContext('2d');function rsz(){cv.width=window.innerWidth;cv.height=window.innerHeight;}rsz();window.addEventListener('resize',rsz);const st=Array.from({length:160},()=>({x:Math.random(),y:Math.random(),r:Math.random()*1.4+.3,speed:Math.random()*.00025+.00004,opacity:Math.random()*.65+.2,ts:Math.random()*.018+.004,to:Math.random()*Math.PI*2}));(function draw(t){cx.clearRect(0,0,cv.width,cv.height);st.forEach(s=>{s.y-=s.speed;if(s.y<0){s.y=1;s.x=Math.random();}const op=s.opacity*(.55+.45*Math.sin(t*s.ts+s.to));cx.beginPath();cx.arc(s.x*cv.width,s.y*cv.height,s.r,0,Math.PI*2);cx.fillStyle=`rgba(212,175,55,${op})`;cx.fill();});requestAnimationFrame(draw);})(0);
+  const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target);}}),{threshold:.1});document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+</body>
+</html>
